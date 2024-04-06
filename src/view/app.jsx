@@ -33,6 +33,12 @@ export function App() {
     getData().catch(console.log);
   }, []);
 
+  // useEffect(() => { tried to use effect for the first robot and somehow wait for the async robot list to load but it didnt work (added it to the getData useEffect)
+  //   if (robotsList.length > 0 && !isLoading) {
+  //     let firstItem = robotsList.find((robot) => robot.id === 1);
+  //     if (firstItem) setFirstRobot(firstItem);
+  //   }
+  // }, []);
   console.log(firstRobot);
 
   return (
