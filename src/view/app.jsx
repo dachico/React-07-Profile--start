@@ -10,7 +10,7 @@ export function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [pickRobot, setPickRobot] = useState(null);
-  const [firstRobot, setFirstRobot] = useState("");
+  const [firstRobot, setFirstRobot] = useState(null);
 
   useEffect(() => {
     async function getData() {
