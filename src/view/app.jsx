@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { List } from "./list";
 import { Filter } from "./filter";
+import { Profile } from "./profile";
+
 import styled from "styled-components";
- 
+
 export function App() {
   const [robotsList, setRobotsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [pickRobot, setPickRobot] = useState(null);
+  const [firstRobot, setFirstRobot] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -17,6 +21,9 @@ export function App() {
         // console.table(data);
         // console.log(`${data.length} items loaded`);
         setRobotsList(data.map((item) => ({ ...item, show: true })));
+
+        const firstItem = data[0];
+        setFirstRobot(firstItem);
       } catch (error) {
         setErrorMsg(`fetch operation failed: ${error.message}`);
       } finally {
@@ -26,6 +33,8 @@ export function App() {
     getData().catch(console.log);
   }, []);
 
+  console.log(firstRobot);
+
   return (
     <Div>
       {errorMsg ? (
@@ -34,8 +43,11 @@ export function App() {
         <h1 className="load-label">Loading...</h1>
       ) : (
         <>
-          <Filter listData={robotsList} onFilter={setRobotsList} />
-          <List listData={robotsList} />
+          <Split>
+            <Profile pickRobot={pickRobot} firstRobot={firstRobot} />
+            <Filter listData={robotsList} onFilter={setRobotsList} />
+            <List listData={robotsList} onPick={setPickRobot} />
+          </Split>
         </>
       )}
     </Div>
@@ -61,4 +73,8 @@ const Div = styled.div`
     font-weight: 400;
     color: maroon;
   }
+`;
+
+const Split = styled.div`
+  display: flex;
 `;

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Card } from "./card";
 
-export function List({ listData }) {
+export function List({ listData, onPick }) {
   return (
     <Div>
       <ul>
         {listData
           .filter((item) => item.show)
           .map((item) => (
-            <li key={item.id}>
+            <li key={item.id} onClick={() => onPick(item)}>
               <Card {...item} />
             </li>
           ))}
@@ -16,7 +16,6 @@ export function List({ listData }) {
     </Div>
   );
 }
-
 
 const Div = styled.div`
   background: oldlace;
@@ -27,10 +26,10 @@ const Div = styled.div`
   overflow-y: scroll;
   box-shadow: 0 0.2rem 0.8rem DimGrey;
 
-  li{
+  li {
     &:nth-child(even) {
-    background: honeydew;
-  }
+      background: honeydew;
+    }
     &:nth-child(odd) {
       background: white;
     }
